@@ -1,0 +1,1 @@
+/home/thomas/.config/Scripts/audio_pulse.sh
