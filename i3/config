@@ -1,1 +1,238 @@
-/home/thomas/.config/i3/config
+###---Basic Definitions---###
+#Needed for i3-gaps
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+gaps inner 0
+gaps outer 0
+#font pango:mono 9
+font pango:DejaVu Sans Mono 9 
+set $mod Mod1
+set $term terminator
+set $browser firefox-developer
+floating_modifier $mod
+
+###---Starting External Scripts---###
+#Music player daemon:
+#exec --no-startup-id mpd
+#Torrent daemon:
+exec --no-startup-id transmission-daemon
+#Wifi applet:
+exec --no-startup-id nm-applet
+#Mount other drives:
+exec --no-startup-id sudo mount -a
+#Composite manager:
+exec --no-startup-id compton
+#Try to load VGA screen if available:
+exec --no-startup-id ~/.config/Scripts/screen.sh v
+#Launch Polybar where appropriate:
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+#Add wallpaper:
+exec --no-startup-id ~/.config/Scripts/wallpaper.sh
+#Remaps
+exec_always --no-startup-id setxkbmap -layout be -option caps:escape
+exec_always --no-startup-id setxkbmap -layout be -option mod4:mod1
+exec_always --no-startup-id setxkbmap -layout be -option mod1:mod4
+#Unclutter makes the mouse invisible after a brief period
+exec --no-startup-id unclutter
+#Battery pop-up
+exec --no-startup-id ~/.config/Scripts/battery-noti.sh
+#Set key speed/delay
+exec --no-startup-id xset r rate 200 30  
+
+
+###---Dropdown/Scratchpad Windows---###
+#Window used for background scripts.
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move position center
+for_window [instance="dropdown"] move scratchpad
+exec --no-startup-id urxvt -name dropdown 
+
+#Window running R for basic arithmetic
+for_window [instance="math"] floating enable
+for_window [instance="math"] resize set 800 300
+for_window [instance="math"] move position center
+for_window [instance="math"] move scratchpad
+exec --no-startup-id urxvt -fn "xft:mono:pixelsize=24" -name math -e R -q
+
+
+###---Basic Bindings---###
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+Return 		exec $term
+#bindsym $mod+Shift+Return 	
+
+bindsym $mod+Shift+space 	floating toggle
+bindsym $mod+space		focus mode_toggle
+
+bindsym $mod+Escape		workspace prev
+#bindsym $mod+Shift+Escape 	
+
+bindsym $mod+BackSpace		exec $flash
+#bindsym $mod+Shift+BackSpace	
+
+#bindsym $mod+Shift+Delete	
+
+#bindsym Print 			exec --no-startup-id scrot
+bindsym Shift+Print 		exec --no-startup-id scrot
+
+###---Letter Key Bindings---###
+bindsym $mod+q			kill
+bindsym $mod+Shift+q		kill
+
+bindsym $mod+w			exec i3-msg exit
+bindsym $mod+Shift+w	 exec reboot	
+
+#bindsym $mod+e			
+#bindsym $mod+Shift+e
+
+bindsym $mod+r 			exec $term -e ranger
+bindsym $mod+Shift+r		restart
+
+bindsym $mod+t			split horizontal
+#bindsym $mod+Shift+t		
+
+bindsym $mod+y	split vertical		 
+#bindsym $mod+Shift+y		
+
+bindsym $mod+u			[instance="dropdown"] scratchpad show; move position center
+#bindsym $mod+Shift+u		
+
+bindsym $mod+i 			exec $term -e htop
+#bindsym $mod+Shift+i		
+
+#bindsym $mod+o			
+#bindsym $mod+Shift+o		
+
+#bindsym $mod+p			
+#bindsym $mod+Shift+p		
+
+bindsym $mod+a			[instance="math"] scratchpad show; move position center
+#bindsym $mod+Shift+a		
+
+bindsym $mod+s			exec --no-startup-id pavucontrol			
+#bindsym $mod+Shift+s		
+
+bindsym $mod+d			exec rofi -show run
+#bindsym $mod+Shift+d		
+
+bindsym $mod+f			fullscreen toggle
+#bindsym $mod+Shift+f
+
+bindsym $mod+g			gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Shift+g		gaps inner current set 15; gaps outer current set 15
+
+bindsym $mod+h			focus left
+bindsym $mod+Shift+h		move left 
+
+bindsym $mod+j			focus down
+bindsym $mod+Shift+j		move down
+
+bindsym $mod+k			focus up
+bindsym $mod+Shift+k		move up 
+
+bindsym $mod+l			focus right
+bindsym $mod+Shift+l	move right	
+
+bindsym $mod+z			gaps outer current plus 5
+bindsym $mod+Shift+z		gaps outer current minus 5
+
+bindsym $mod+x			exec --no-startup-id i3lock
+bindsym $mod+Shift+x		exec --no-startup-id poweroff
+
+#bindsym $mod+c			
+#bindsym $mod+Shift+c
+
+#bindsym $mod+v			
+#bindsym $mod+Shift+v		 
+
+bindsym $mod+b			exec --no-startup-id $browser
+bindsym $mod+Shift+b		exec --no-startup-id $browser --private-window
+
+bindsym $mod+n			exec --no-startup-id nautilus			
+#bindsym $mod+Shift+n		
+
+bindsym $mod+m			exec --no-startup-id keepassx2		
+#bindsym $mod+Shift+m		
+
+
+
+#For PULSEAUDIO/PAMIXER
+set $inc --no-startup-id pamixer -i 5
+set $biginc --no-startup-id pamixer -i 15
+set $dec --no-startup-id pamixer -d 5
+set $bigdec --no-startup-id pamixer -d 15
+set $mute --no-startup-id pamixer -t
+set $micmute --no-startup-id pamixer -t
+set $truemute --no-startup-id pamixer -m
+#set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_pulse.sh
+set $audio --no-startup-id bash ~/.config/Scripts/audio_pulse.sh
+
+
+# switch to workspace
+bindsym $mod+ampersand workspace 1
+bindsym $mod+eacute workspace 2
+bindsym $mod+quotedbl workspace 3
+bindsym $mod+apostrophe workspace 4
+bindsym $mod+parenleft workspace 5
+bindsym $mod+section workspace 6
+bindsym $mod+egrave workspace 7
+bindsym $mod+exclam workspace 8
+bindsym $mod+ccedilla workspace 9
+bindsym $mod+agrave workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+ampersand move container to workspace 1
+bindsym $mod+Shift+eacute move container to workspace 2
+bindsym $mod+Shift+quotedbl move container to workspace 3
+bindsym $mod+Shift+apostrophe move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+section move container to workspace 6
+bindsym $mod+Shift+egrave move container to workspace 7
+bindsym $mod+Shift+exclam move container to workspace 8
+bindsym $mod+Shift+ccedilla move container to workspace 9
+bindsym $mod+Shift+agrave move container to workspace 10
+
+###---Extra XF86 Keys---###
+#These are the extra media keys that some keyboards have.
+bindsym XF86AudioMute		exec $mute
+bindsym XF86AudioLowerVolume	exec $dec
+bindsym XF86AudioRaiseVolume	exec $inc
+bindsym XF86PowerOff		exec sudo shutdown -h now
+bindsym XF86Sleep		exec sudo zzz
+bindsym XF86ScreenSaver		exec exec --no-startup-id ~/.config/i3/lock.sh
+#bindsym XF86RotateWindows	exec
+bindsym XF86MyComputer		exec $term -e ranger
+#bindsym XF86Back		exec
+#bindsym XF86Forward		exec
+bindsym XF86AudioNext		exec $next
+bindsym XF86AudioPlay		exec $pause
+bindsym XF86AudioPrev		exec $prev
+bindsym XF86AudioStop		exec $pause
+bindsym XF86Reload		restart
+#bindsym XF86ScrollUp		exec
+#bindsym XF86ScrollDown		exec
+bindsym XF86AudioMicMute	exec $micmute
+#bindsym XF86TouchpadToggle	exec
+bindsym XF86TouchpadOn		exec --no-startup-id synclient TouchpadOff=0
+bindsym XF86TouchpadOff		exec --no-startup-id synclient TouchpadOff=1
+bindsym XF86Suspend		exec --no-startup-id i3lock
+bindsym XF86Close		kill
+bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5
+bindsym XF86AudioMedia		exec $music
+bindsym XF86Display		exec --no-startup-id arandr
+#bindsym XF86KbdLightOnOff	exec
+#bindsym XF86KbdBrightnessDown	exec --no-startup-id xbacklight -dec 10
+#bindsym XF86KbdBrightnessUp	exec --no-startup-id xbacklight -inc 10
+
+
+
