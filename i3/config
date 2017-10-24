@@ -11,7 +11,7 @@ set $term terminator
 set $browser firefox-developer
 floating_modifier $mod
 
-###---Starting External Scripts---###
+###---Starting External scripts---###
 #Music player daemon:
 #exec --no-startup-id mpd
 #Torrent daemon:
@@ -23,11 +23,11 @@ exec --no-startup-id sudo mount -a
 #Composite manager:
 exec --no-startup-id compton
 #Try to load VGA screen if available:
-exec --no-startup-id ~/.config/Scripts/screen.sh v
+exec --no-startup-id ~/.config/scripts/screen.sh v
 #Launch Polybar where appropriate:
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 #Add wallpaper:
-exec --no-startup-id ~/.config/Scripts/wallpaper.sh
+exec --no-startup-id ~/.config/scripts/wallpaper.sh
 #Remaps
 exec_always --no-startup-id setxkbmap -layout be -option caps:escape
 exec_always --no-startup-id setxkbmap -layout be -option mod4:mod1
@@ -35,7 +35,7 @@ exec_always --no-startup-id setxkbmap -layout be -option mod1:mod4
 #Unclutter makes the mouse invisible after a brief period
 exec --no-startup-id unclutter
 #Battery pop-up
-exec --no-startup-id ~/.config/Scripts/battery-noti.sh
+exec --no-startup-id ~/.config/scripts/battery-noti.sh
 #Set key speed/delay
 exec --no-startup-id xset r rate 200 30  
 
@@ -173,8 +173,8 @@ set $bigdec --no-startup-id pamixer -d 15
 set $mute --no-startup-id pamixer -t
 set $micmute --no-startup-id pamixer -t
 set $truemute --no-startup-id pamixer -m
-#set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_pulse.sh
-set $audio --no-startup-id bash ~/.config/Scripts/audio_pulse.sh
+#set $screencast  --no-startup-id bash ~/.config/scripts/screencast_pulse.sh
+set $audio --no-startup-id bash ~/.config/scripts/audio_pulse.sh
 
 
 # switch to workspace
