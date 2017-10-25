@@ -30,8 +30,6 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id ~/.config/scripts/wallpaper.sh
 #Remaps
 exec_always --no-startup-id setxkbmap -layout be -option caps:escape
-exec_always --no-startup-id setxkbmap -layout be -option mod4:mod1
-exec_always --no-startup-id setxkbmap -layout be -option mod1:mod4
 #Unclutter makes the mouse invisible after a brief period
 exec --no-startup-id unclutter
 #Battery pop-up
