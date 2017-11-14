@@ -138,7 +138,7 @@ bindsym $mod+k			focus up
 bindsym $mod+Shift+k		move up 
 
 bindsym $mod+l			focus right
-bindsym $mod+Shift+l	move right	
+bindsym $mod+Shift+l		move right	
 
 bindsym $mod+z			gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
@@ -146,7 +146,7 @@ bindsym $mod+Shift+z		gaps outer current minus 5
 bindsym $mod+x			exec --no-startup-id i3lock
 bindsym $mod+Shift+x		exec --no-startup-id poweroff
 
-#bindsym $mod+c			
+bindsym $mod+c			workspace 10; exec --no-startup-id cantata	
 #bindsym $mod+Shift+c
 
 #bindsym $mod+v			
@@ -158,7 +158,7 @@ bindsym $mod+Shift+b		exec --no-startup-id $browser --private-window
 bindsym $mod+n			exec --no-startup-id nautilus			
 #bindsym $mod+Shift+n		
 
-bindsym $mod+m			exec --no-startup-id keepassx2		
+bindsym $mod+m			workspace 9; exec --no-startup-id keepassx2		
 #bindsym $mod+Shift+m		
 
 
