@@ -17,7 +17,7 @@ exec --no-startup-id mpd --kill
 #Torrent daemon:
 exec --no-startup-id transmission-daemon
 #Wifi applet:
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 #Mount other drives:
 exec --no-startup-id sudo mount -a
 #Composite manager:
@@ -89,7 +89,7 @@ bindsym $mod+Shift+q		kill
 bindsym $mod+w			exec i3-msg exit
 bindsym $mod+Shift+w	 exec reboot	
 
-#bindsym $mod+e			
+bindsym $mod+e			exec --no-startup-id $term -e nmtui
 #bindsym $mod+Shift+e
 
 bindsym $mod+r 			exec $term -e ranger
