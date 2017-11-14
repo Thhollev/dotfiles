@@ -11,6 +11,8 @@ while true; do
 			notify-send -u "critical" "Battery is super low, give me power!"
 		elif [ $percentage -lt 10 ]; then
 			notify-send -u "critical" "Battery is low!"
+		elif [ $percentage -eq 100 ]; then
+			notify-send -u low "Battery fully charged."
 		fi
 	fi
 
