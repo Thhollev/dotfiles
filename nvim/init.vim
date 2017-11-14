@@ -6,6 +6,8 @@ set nocompatible
 syntax enable
 nohl			" no highlighting
 
+let mapleader=";"
+
 set number 		" show line numbers
 set autoindent		" auto indeting on 
 set path+=**		" search down into subfolders
@@ -13,6 +15,7 @@ set wildmenu		" display all matching files on tab complete
 set mouse=a		" enable mouse selection
 set autoread		" auto reload file on change
 set encoding=utf-8	" set default encoding
+set splitright
 
 " color scheme
 source /usr/share/nvim/runtime/colors/ron.vim
@@ -26,7 +29,7 @@ ino <up> <nop>
 no <down> <nop>
 ino <down> <nop>
 no <left> <nop>
-ino <left> <nop>
+no <left> <nop>
 no <right> <nop>
 ino <right> <nop>
 
@@ -37,9 +40,16 @@ call plug#begin('~/dotfiles/nvim/plugged')
 Plug 'vim-airline/vim-airline' 
 Plug 'vim-airline/vim-airline-themes' 
 Plug 'junegunn/vim-easy-align'
-Plug 'scrooloose/nerdtree'
-Plug 'vimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'airblade/vim-gitgutter'
+Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
+Plug 'tpope/vim-fugitive'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 call plug#end()
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 let g:airline_powerline_fonts=1
 let g:airline_theme='bubblegum'
@@ -72,3 +82,11 @@ let g:haskell_enable_pattern_synonyms=1
 let g:haskell_enable_typeroles=1
 let g:haskell_enable_static_pointers=1
 
+let g:session_directory = "~/dotfiles/nvim/session/"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1 
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession
+nnoremap <leader>sc :CloseSession
