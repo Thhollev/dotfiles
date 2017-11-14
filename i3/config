@@ -13,7 +13,7 @@ floating_modifier $mod
 
 ###---Starting External scripts---###
 #Music player daemon:
-#exec --no-startup-id mpd
+exec --no-startup-id mpd --kill
 #Torrent daemon:
 exec --no-startup-id transmission-daemon
 #Wifi applet:
@@ -205,8 +205,7 @@ bindsym XF86AudioMute		exec $mute
 bindsym XF86AudioLowerVolume	exec $dec
 bindsym XF86AudioRaiseVolume	exec $inc
 bindsym XF86PowerOff		exec sudo shutdown -h now
-bindsym XF86Sleep		exec sudo zzz
-bindsym XF86ScreenSaver		exec exec --no-startup-id ~/.config/i3/lock.sh
+bindsym XF86Sleep		exec sudo zzz 
 #bindsym XF86RotateWindows	exec
 bindsym XF86MyComputer		exec $term -e ranger
 #bindsym XF86Back		exec
