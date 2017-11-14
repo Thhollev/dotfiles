@@ -1,0 +1,234 @@
+
+"  General Options {{{
+" =====================
+let mapleader=';'
+
+syntax enable
+
+set mouse=a         " enable mouse selection
+set number          " line numbers on the left side
+set showcmd         " show the commands while typing
+set splitright      " open new splits on the right
+set splitbelow      " open new splits below
+set autoread        " autoreload file on change
+set scrolloff=8     " keep the cursor 8 lines away from the top/bottom
+set ruler           " show the lines/% bottomright
+set encoding=utf-8  " set default encoding
+set laststatus=2    " always show the status line
+
+" change cursor shape according to mode
+:let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+" use zsh instead of bash
+set shell=/bin/zsh
+
+" wrap lines at 72 characters
+"set formatprg=par\ -w72
+"set formatoptions=tcrqnlmj
+"set textwidth=72
+
+set smartcase
+
+" indentation
+set tabstop=2       " tab is 2 wide
+set shiftwidth=2    " for use with > and <
+set noexpandtab     " tab key puts tabs
+set list            " show whitespace, configure below
+set listchars=tab:·\ ,trail:·
+                    " display tabs with a leading \cdot. Alternative: \mapsto ↦
+                    " trailing whitespace looks like \cdot
+
+nnoremap <Tab> >>
+vnoremap <Tab> >
+nnoremap <S-Tab> <<
+vnoremap <S-Tab> <
+
+" Just hit the [à0] button on an AZERTY, no need to do shift+à to for 0
+nnoremap à   0
+
+" Not too much folding
+set foldlevelstart=3
+
+" Escape from NeoVim terminals
+tnoremap <Esc> <C-\><C-n>
+
+inoremap jj <Esc>
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+" Window movements with Ctrl+hjkl
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" C-hjkl to open windows
+nnoremap <C-j> <C-w>n
+nnoremap <C-k> <C-w>N
+nnoremap <C-l> <C-w>v
+nmap     <C-h> <C-w>V
+
+" Vertical equivalent of C-w-n and C-w-N
+"nnoremap <C-w>v :vnew<CR>
+nnoremap <C-w>V :let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>
+
+" Open a file in the current directory
+nmap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+nnoremap <Leader>n :noh<CR>
+
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+"  General Options }}}
+
+"  Plugins {{{
+" =====================
+
+" Plugged
+" -------
+call plug#begin('~/.config/nvim/plugged')
+"Plug 'powerline/powerline', { 'rtp': 'powerline/bindings/vim', 'branch': 'stable' }
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-obsession', { 'on': 'Obsess' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/vim-easy-align'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-fugitive'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Installed from system repos
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'chriskempson/base16-vim'
+Plug 'LaTeX-Box-Team/LaTeX-Box', { 'for': 'tex' }
+Plug 'kassio/neoterm', { 'on': 'T' }
+Plug 'mhinz/vim-grepper', { 'on': 'Grepper' }
+" Preview buffers when pressing " or @
+Plug 'junegunn/vim-peekaboo'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+"Plug 'vim-scripts/c.vim', { 'for': ['c','cpp'] }
+Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c','cpp'] }
+Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
+call plug#end()
+
+" Plugin configuration
+" --------------------
+let g:ctrlp_map='<Leader>l'
+let g:ctrlp_user_command=['.git/', 'git --git-dir=%s/.git ls-files . -co --exclude-standard']
+nnoremap <Leader>s :CtrlPTag<CR>
+
+let g:airline_powerline_fonts=1
+let g:airline_theme='bubblegum'
+let g:airline#extensions#ycm#enabled=1
+
+nnoremap <Leader>t :NERDTreeToggle<CR><CR>
+let NERDTreeIgnore=[
+  \ ".*\\.class$",
+  \ ".*\\.o$",
+  \ ".*\\.hi$",
+  \ ".*\\.pyc$"
+  \ ]
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+xmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
+
+au! BufEnter *.cpp let b:fswitchdst = 'hpp,h' | let b:fswitchlocs = '.'
+au! BufEnter *.c   let b:fswitchdst = 'h' | let b:fswitchlocs = '.'
+nmap <silent> <F5> :FSRight<cr>
+
+let g:EasyMotion_do_mapping=0
+let g:EasyMotion_startofline=0
+map      <Leader>f <Plug>(easymotion-s)
+map      <Leader>j <Plug>(easymotion-j)
+map      <Leader>k <Plug>(easymotion-k)
+map      <Leader>w <Plug>(easymotion-bd-w)
+nmap     <Leader>w <Plug>(easymotion-overwin-w)
+
+" YouCompleteMe
+map <C-]> :YcmCompleter GoToImprecise<CR>
+
+let g:ycm_error_symbol='!>'
+let g:ycm_warning_symbol='-'
+let g:ycm_enable_diagnostic_highlighting=0
+let g:ycm_complete_in_comments=1
+
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_add_preview_to_completeopt=1
+
+let g:ycm_global_ycm_extra_conf='~/.config/nvim/ycm_extra_conf.py'
+let g:ycm_extra_conf_globlist = ['~/Documents/*','~/development','!~/*']
+let g:ycm_rust_src_path='/data/programming/rustc-1.7.0/src'
+set completeopt=menu
+
+" Color settings
+" Decent color schemes: ron, delek, peachpuff, slate, murphy, elflord, desert
+source /usr/share/nvim/runtime/colors/ron.vim
+highlight LineNr ctermfg=08 ctermbg=None
+
+nnoremap <Leader>g :Grepper<CR>
+let g:grepper={
+  \ 'tools': ['rg', 'git', 'grep'],
+  \ 'open': 1,
+  \ 'jump': 0,
+  \ }
+
+let g:gutentags_cache_dir = '~/.cache/gutentag'
+
+nnoremap <leader>df :Dox<CR>
+nnoremap <leader>dl :DoxLic<CR>
+nnoremap <leader>da :DoxAuthor<CR>
+let g:DoxygenToolkit_authorName="Ruben Maes"
+
+nnoremap <Leader>o :Tagbar<CR>
+let g:tagbar_autoclose=1
+let g:tagbar_autofocus=1
+let g:tagbar_sort=0
+let g:tagbar_compact=1
+let g:tagbar_iconchars=['▸', '▾']
+let g:tagbar_type_make={
+  \ 'kinds': ['m:macros', 't:targets']
+  \ }
+let g:tagbar_type_rust={
+  \ 'ctagstype': 'rust',
+  \ 'kinds': [
+    \ 'n:modules',
+    \ 's:structs',
+    \ 'i:interfaces',
+    \ 'c:implementations',
+    \ 'f:functions',
+    \ 'g:enums',
+    \ 't:typedefs',
+    \ 'v:variables',
+    \ 'M:macros',
+    \ 'm:fields',
+    \ 'e:enumerators',
+    \ 'F:methods',
+    \ ]
+  \ }
+
+let g:haskell_enable_quantification=1
+let g:haskell_enable_recursivedo=1
+let g:haskell_enable_arrowsyntax=1
+let g:haskell_enable_pattern_synonyms=1
+let g:haskell_enable_typeroles=1
+let g:haskell_enable_static_pointers=1
+
+"  Plugged }}}
+
+" vim: foldmethod=marker
+
