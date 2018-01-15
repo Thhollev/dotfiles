@@ -4,16 +4,22 @@ hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 gaps inner 0
 gaps outer 0
-#font pango:mono 9
+
 font pango:DejaVu Sans Mono 9 
-set $mod Mod1
+set $mod Mod4
 set $term terminator
-set $browser firefox-developer
+set $browser firefox-developer-edition
+
 floating_modifier $mod
+
+#turn numlock on
+exec_always --no-startup-id numlockx on
+#Remaps
+exec_always --no-startup-id setxkbmap -layout be -option caps:escape,altwin:swap_lalt_lwin
 
 ###---Starting External scripts---###
 #Music player daemon:
-exec --no-startup-id mpd --kill
+exec --no-startup-id mpd
 #Torrent daemon:
 exec --no-startup-id transmission-daemon
 #Wifi applet:
@@ -28,23 +34,12 @@ exec --no-startup-id ~/.config/scripts/screen.sh v
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 #Add wallpaper:
 exec --no-startup-id ~/.config/scripts/wallpaper.sh
-#Remaps
-exec_always --no-startup-id setxkbmap -layout be -option caps:escape
 #Unclutter makes the mouse invisible after a brief period
 exec --no-startup-id unclutter
 #Battery pop-up
 exec --no-startup-id ~/.config/scripts/battery-noti.sh
 #Set key speed/delay
 exec --no-startup-id xset r rate 200 30  
-
-
-###---Dropdown/Scratchpad Windows---###
-#Window used for background scripts.
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
-for_window [instance="dropdown"] move position center
-for_window [instance="dropdown"] move scratchpad
-exec --no-startup-id urxvt -name dropdown 
 
 #Window running R for basic arithmetic
 for_window [instance="math"] floating enable
@@ -65,100 +60,100 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-bindsym $mod+Return 		exec $term
+bindsym $mod+Return 		exec --no-startup-id $term
 #bindsym $mod+Shift+Return 	
 
 bindsym $mod+Shift+space 	floating toggle
-bindsym $mod+space		focus mode_toggle
+bindsym $mod+space			focus mode_toggle
 
-bindsym $mod+Escape		workspace prev
+bindsym $mod+Escape			workspace prev
 #bindsym $mod+Shift+Escape 	
 
-bindsym $mod+BackSpace		exec $flash
+bindsym $mod+BackSpace		exec --no-startup-id $flash
 #bindsym $mod+Shift+BackSpace	
 
 #bindsym $mod+Shift+Delete	
 
-#bindsym Print 			exec --no-startup-id scrot
+#bindsym Print 				exec --no-startup-id scrot
 bindsym Shift+Print 		exec --no-startup-id scrot
 
 ###---Letter Key Bindings---###
-bindsym $mod+q			kill
+bindsym $mod+q				kill
 bindsym $mod+Shift+q		kill
 
-bindsym $mod+w			exec i3-msg exit
-bindsym $mod+Shift+w	 exec reboot	
+bindsym $mod+w				exec --no-startup-id i3-msg exit
+bindsym $mod+Shift+w		exec --no-startup-id reboot	
 
-bindsym $mod+e			exec --no-startup-id $term -e nmtui
+bindsym $mod+e				exec --no-startup-id $term -e nmtui
 #bindsym $mod+Shift+e
 
-bindsym $mod+r 			exec $term -e ranger
+bindsym $mod+r 				exec --no-startup-id $term -e ranger
 bindsym $mod+Shift+r		restart
 
-bindsym $mod+t			split horizontal
+bindsym $mod+t				split horizontal
 #bindsym $mod+Shift+t		
 
-bindsym $mod+y	split vertical		 
+bindsym $mod+y				split vertical		 
 #bindsym $mod+Shift+y		
 
-bindsym $mod+u			[instance="dropdown"] scratchpad show; move position center
+#bindsym $mod+u				[instance="dropdown"] scratchpad show; move position center
 #bindsym $mod+Shift+u		
 
-bindsym $mod+i 			exec $term -e htop
+bindsym $mod+i 				exec --no-startup-id $term -e htop
 #bindsym $mod+Shift+i		
 
 #bindsym $mod+o			
 #bindsym $mod+Shift+o		
 
-#bindsym $mod+p			
+bindsym $mod+p				focus parent	
 #bindsym $mod+Shift+p		
 
-bindsym $mod+a			[instance="math"] scratchpad show; move position center
+bindsym $mod+a				[instance="math"] scratchpad show; move position center
 #bindsym $mod+Shift+a		
 
-bindsym $mod+s			exec --no-startup-id pavucontrol			
+bindsym $mod+s				exec --no-startup-id pavucontrol			
 #bindsym $mod+Shift+s		
 
-bindsym $mod+d			exec rofi -show run
+bindsym $mod+d				exec --no-startup-id rofi -show run
 #bindsym $mod+Shift+d		
 
-bindsym $mod+f			fullscreen toggle
+bindsym $mod+f				fullscreen toggle
 #bindsym $mod+Shift+f
 
-bindsym $mod+g			gaps inner current set 0; gaps outer current set 0
+bindsym $mod+g				gaps inner current set 0; gaps outer current set 0
 bindsym $mod+Shift+g		gaps inner current set 15; gaps outer current set 15
 
-bindsym $mod+h			focus left
+bindsym $mod+h				focus left
 bindsym $mod+Shift+h		move left 
 
-bindsym $mod+j			focus down
+bindsym $mod+j				focus down
 bindsym $mod+Shift+j		move down
 
-bindsym $mod+k			focus up
+bindsym $mod+k				focus up
 bindsym $mod+Shift+k		move up 
 
-bindsym $mod+l			focus right
+bindsym $mod+l				focus right
 bindsym $mod+Shift+l		move right	
 
-bindsym $mod+z			gaps outer current plus 5
+bindsym $mod+z				gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
-bindsym $mod+x			exec --no-startup-id i3lock
+bindsym $mod+x				exec --no-startup-id i3lock
 bindsym $mod+Shift+x		exec --no-startup-id poweroff
 
-bindsym $mod+c			workspace 10; exec --no-startup-id cantata	
+bindsym $mod+c				exec --no-startup-id i3-msg 'workspace 10' && exec cantata
 #bindsym $mod+Shift+c
 
 #bindsym $mod+v			
 #bindsym $mod+Shift+v		 
 
-bindsym $mod+b			exec --no-startup-id $browser
+bindsym $mod+b				exec --no-startup-id $browser
 bindsym $mod+Shift+b		exec --no-startup-id $browser --private-window
 
-bindsym $mod+n			exec --no-startup-id nautilus			
+bindsym $mod+n				exec --no-startup-id nautilus			
 #bindsym $mod+Shift+n		
 
-bindsym $mod+m			workspace 9; exec --no-startup-id keepassx2		
+bindsym $mod+m				exec --no-startup-id i3-msg 'workspace 9' && exec keepassx2
 #bindsym $mod+Shift+m		
 
 
