@@ -8,6 +8,8 @@ nohl			" no highlighting
 
 let mapleader=";"
 
+set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4 smarttab
+
 set number 		" show line numbers
 set autoindent		" auto indeting on 
 set path+=**		" search down into subfolders
@@ -33,6 +35,12 @@ no <left> <nop>
 no <right> <nop>
 ino <right> <nop>
 
+" better window navigation
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
 "
 " PLUGINS
 "
@@ -46,6 +54,7 @@ Plug 'derekwyatt/vim-fswitch', { 'for': ['c','cpp'] }
 Plug 'tpope/vim-fugitive'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
+Plug 'godlygeek/tabular'
 call plug#end()
 
 autocmd StdinReadPre * let s:std_in=1
@@ -57,6 +66,8 @@ let g:airline_theme='bubblegum'
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" NerdTree
+let NERDTreeIgnore = ['\.pyc$', '__pycache__', 'node_modules', 'package-lock.json', 'env']
 
 "YouCompleteMe
 map <C-]> :YcmCompleter GoToImprecise<CR>
@@ -71,8 +82,7 @@ let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_add_preview_to_completeopt=1
 
 let g:ycm_global_ycm_extra_conf='~/.config/nvim/ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = ['~/Documents/*','~/development','!~/*']
-let g:ycm_rust_src_path='/data/programming/rustc-1.7.0/src'
+let g:ycm_extra_conf_globlist = ['~/Documents/*','~/dev','!~/*']
 set completeopt=menu
 
 let g:haskell_enable_quantification=1
@@ -90,3 +100,16 @@ nnoremap <leader>so :OpenSession
 nnoremap <leader>ss :SaveSession
 nnoremap <leader>sd :DeleteSession
 nnoremap <leader>sc :CloseSession
+
+" make < > shifts keep selection
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <silent> <leader>n :noh<cr>
+
+" Copy to clipboard            " Paste from clipboard
+vnoremap  <leader>y  "+y    |  nnoremap <leader>p "+p
+nnoremap  <leader>Y  "+yg_  |  nnoremap <leader>P "+P
+nnoremap  <leader>y  "+y    |  vnoremap <leader>p "+p
+nnoremap  <leader>yy "+yy   |  vnoremap <leader>P "+P
+
