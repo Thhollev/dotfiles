@@ -223,8 +223,6 @@ bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5
 bindsym XF86AudioMedia		exec $music
 bindsym XF86Display		exec --no-startup-id arandr
 #bindsym XF86KbdLightOnOff	exec
-#bindsym XF86KbdBrightnessDown	exec --no-startup-id xbacklight -dec 10
-#bindsym XF86KbdBrightnessUp	exec --no-startup-id xbacklight -inc 10
-
-
+bindsym XF86KbdBrightnessUp	exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh up
+bindsym XF86KbdBrightnessDown exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh down
 

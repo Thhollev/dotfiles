@@ -58,6 +58,7 @@ Plug 'godlygeek/tabular'
 Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive && ./install.py' }
 Plug 'vim-syntastic/syntastic'
 Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 "autocmd StdinReadPre * let s:std_in=1
