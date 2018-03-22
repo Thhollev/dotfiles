@@ -8,6 +8,7 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch polybar
-polybar i3bar -c ~/.config/polybar/config &
+polybar main &
+polybar hdmi &
 
 echo "Bar launched..."
