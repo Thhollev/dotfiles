@@ -55,10 +55,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 Plug 'godlygeek/tabular'
+Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive && ./install.py' }
+Plug 'vim-syntastic/syntastic'
+Plug 'tomtom/tcomment_vim'
 call plug#end()
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 let g:airline_powerline_fonts=1
 let g:airline_theme='bubblegum'
@@ -81,8 +84,9 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_add_preview_to_completeopt=1
 
+let g:ycm_server_python_interpreter='/usr/bin/python3'
 let g:ycm_global_ycm_extra_conf='~/.config/nvim/ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = ['~/Documents/*','~/dev','!~/*']
+let g:ycm_extra_conf_globlist = ['~/Documents/*','~/develop','!~/*']
 set completeopt=menu
 
 let g:haskell_enable_quantification=1
@@ -95,7 +99,7 @@ let g:haskell_enable_static_pointers=1
 let g:session_directory = "~/dotfiles/nvim/session/"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
-let g:session_command_aliases = 1 
+let g:session_command_aliases = 1
 nnoremap <leader>so :OpenSession
 nnoremap <leader>ss :SaveSession
 nnoremap <leader>sd :DeleteSession
@@ -113,3 +117,17 @@ nnoremap  <leader>Y  "+yg_  |  nnoremap <leader>P "+P
 nnoremap  <leader>y  "+y    |  vnoremap <leader>p "+p
 nnoremap  <leader>yy "+yy   |  vnoremap <leader>P "+P
 
+nnoremap <silent> <leader>t :NERDTreeToggle<CR><CR>
+
+set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+"let g:syntastic_disabled_filetypes=['js']
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
