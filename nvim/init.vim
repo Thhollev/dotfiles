@@ -59,6 +59,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive 
 Plug 'vim-syntastic/syntastic'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
+Plug 'posva/vim-vue'
 call plug#end()
 
 "autocmd StdinReadPre * let s:std_in=1
