@@ -1,47 +1,57 @@
-###---Basic Definitions---###
-#Needed for i3-gaps
+###---------------------------###
+#			Basic				#
+###---------------------------###
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 gaps inner 0
 gaps outer 0
-
-font pango:DejaVu Sans Mono 9 
-set $mod Mod4
+font pango:DejaVu Sans Mono 9
 set $term terminator
 set $browser firefox-developer-edition
 
-floating_modifier $mod
 
-#turn numlock on
+###---------------------------###
+#			Keys				#
+###---------------------------###
+# Mod
+set $mod Mod4
+# Numlock on
 exec_always --no-startup-id numlockx on
-#Remaps
+# Remap
 exec_always --no-startup-id setxkbmap -layout be -option caps:escape,altwin:swap_lalt_lwin
+# Key speed/delay
+exec --no-startup-id xset r rate 200 30
 
-###---Starting External scripts---###
-#Music player daemon:
+
+###---------------------------###
+#			Scripts				#
+###---------------------------###
+# Mpd
 exec --no-startup-id mpd
-#Torrent daemon:
+# Transmission
 exec --no-startup-id transmission-daemon
-#Wifi applet:
+# NetworkManager
 #exec --no-startup-id nm-applet
-#Mount other drives:
+# Mount drives
 exec --no-startup-id sudo mount -a
-#Composite manager:
+# Composite manager:
 exec --no-startup-id compton
-#Try to load 2nd screen if available:
+# Load 2nd screen
 exec --no-startup-id ~/.config/scripts/screen.sh
-#Launch Polybar where appropriate:
+# Launch Polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
-#Add wallpaper:
+# Wallpaper
 exec --no-startup-id ~/.config/scripts/wallpaper.sh
-#Unclutter makes the mouse invisible after a brief period
+# Unclutter (makes the mouse invisible)
 exec --no-startup-id unclutter
-#Battery pop-up
+# Battery notifications
 exec --no-startup-id ~/.config/scripts/battery-noti.sh
-#Set key speed/delay
-exec --no-startup-id xset r rate 200 30  
 
-#Window running R for basic arithmetic
+
+###---------------------------###
+#			Scratchpad			#
+###---------------------------###
+# R for basic arithmetic
 for_window [instance="math"] floating enable
 for_window [instance="math"] resize set 800 300
 for_window [instance="math"] move position center
@@ -49,40 +59,58 @@ for_window [instance="math"] move scratchpad
 exec --no-startup-id urxvt -fn "xft:mono:pixelsize=24" -name math -e R -q
 
 
-###---Basic Bindings---###
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+###---------------------------###
+#			Pulse Audio			#
+###---------------------------###
+set $inc --no-startup-id pamixer -i 5
+set $biginc --no-startup-id pamixer -i 15
+set $dec --no-startup-id pamixer -d 5
+set $bigdec --no-startup-id pamixer -d 15
+set $mute --no-startup-id pamixer -t
+set $micmute --no-startup-id pamixer -t
+set $truemute --no-startup-id pamixer -m
+set $audio --no-startup-id bash ~/.config/scripts/audio_pulse.sh
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+
+###---------------------------###
+#		Special Bindings		#
+###---------------------------###
+bindsym $mod+Left 			focus left
+bindsym $mod+Down 			focus down
+bindsym $mod+Up 			focus up
+bindsym $mod+Right 			focus right
+
+bindsym $mod+Shift+Left 	move left
+bindsym $mod+Shift+Down 	move down
+bindsym $mod+Shift+Up 		move up
+bindsym $mod+Shift+Right 	move right
 
 bindsym $mod+Return 		exec --no-startup-id $term
-#bindsym $mod+Shift+Return 	
+#bindsym $mod+Shift+Return
 
 bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space			focus mode_toggle
 
 bindsym $mod+Escape			workspace prev
-#bindsym $mod+Shift+Escape 	
+#bindsym $mod+Shift+Escape
 
 bindsym $mod+BackSpace		exec --no-startup-id $flash
-#bindsym $mod+Shift+BackSpace	
+#bindsym $mod+Shift+BackSpace
 
-#bindsym $mod+Shift+Delete	
+#bindsym $mod+Shift+Delete
 
 #bindsym Print 				exec --no-startup-id scrot
 bindsym Shift+Print 		exec --no-startup-id scrot
 
-###---Letter Key Bindings---###
+
+###---------------------------###
+#		Letter Bindings			#
+###---------------------------###
 bindsym $mod+q				kill
 bindsym $mod+Shift+q		kill
 
 bindsym $mod+w				exec --no-startup-id i3-msg exit
-bindsym $mod+Shift+w		exec --no-startup-id reboot	
+bindsym $mod+Shift+w		exec --no-startup-id reboot
 
 bindsym $mod+e				exec --no-startup-id $term -e nmtui
 #bindsym $mod+Shift+e
@@ -91,31 +119,31 @@ bindsym $mod+r 				exec --no-startup-id $term -e ranger
 bindsym $mod+Shift+r		restart
 
 bindsym $mod+t				split horizontal
-#bindsym $mod+Shift+t		
+#bindsym $mod+Shift+t
 
-bindsym $mod+y				split vertical		 
-#bindsym $mod+Shift+y		
+bindsym $mod+y				split vertical
+#bindsym $mod+Shift+y
 
 #bindsym $mod+u				[instance="dropdown"] scratchpad show; move position center
-#bindsym $mod+Shift+u		
+#bindsym $mod+Shift+u
 
 bindsym $mod+i 				exec --no-startup-id $term -e htop
-#bindsym $mod+Shift+i		
+#bindsym $mod+Shift+i
 
-#bindsym $mod+o			
-#bindsym $mod+Shift+o		
+#bindsym $mod+o
+#bindsym $mod+Shift+o
 
-bindsym $mod+p				focus parent	
-#bindsym $mod+Shift+p		
+bindsym $mod+p				focus parent
+#bindsym $mod+Shift+p
 
 bindsym $mod+a				[instance="math"] scratchpad show; move position center
-#bindsym $mod+Shift+a		
+#bindsym $mod+Shift+a
 
-bindsym $mod+s				exec --no-startup-id pavucontrol			
-#bindsym $mod+Shift+s		
+bindsym $mod+s				exec --no-startup-id pavucontrol
+#bindsym $mod+Shift+s
 
 bindsym $mod+d				exec --no-startup-id rofi -show run
-#bindsym $mod+Shift+d		
+#bindsym $mod+Shift+d
 
 bindsym $mod+f				fullscreen toggle
 #bindsym $mod+Shift+f
@@ -124,16 +152,16 @@ bindsym $mod+g				gaps inner current set 0; gaps outer current set 0
 bindsym $mod+Shift+g		gaps inner current set 15; gaps outer current set 15
 
 bindsym $mod+h				focus left
-bindsym $mod+Shift+h		move left 
+bindsym $mod+Shift+h		move left
 
 bindsym $mod+j				focus down
 bindsym $mod+Shift+j		move down
 
 bindsym $mod+k				focus up
-bindsym $mod+Shift+k		move up 
+bindsym $mod+Shift+k		move up
 
 bindsym $mod+l				focus right
-bindsym $mod+Shift+l		move right	
+bindsym $mod+Shift+l		move right
 
 bindsym $mod+z				gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
@@ -144,85 +172,76 @@ bindsym $mod+Shift+x		exec --no-startup-id poweroff
 bindsym $mod+c				exec --no-startup-id i3-msg 'workspace 10' && exec cantata
 #bindsym $mod+Shift+c
 
-#bindsym $mod+v			
-#bindsym $mod+Shift+v		 
+#bindsym $mod+v
+#bindsym $mod+Shift+v
 
 bindsym $mod+b				exec --no-startup-id $browser
 bindsym $mod+Shift+b		exec --no-startup-id $browser --private-window
 
-bindsym $mod+n				exec --no-startup-id nautilus			
-#bindsym $mod+Shift+n		
+bindsym $mod+n				exec --no-startup-id nautilus
+#bindsym $mod+Shift+n
 
 bindsym $mod+m				exec --no-startup-id ~/.config/scripts/key.sh
-#bindsym $mod+Shift+m		
+#bindsym $mod+Shift+m
 
 
-
-#For PULSEAUDIO/PAMIXER
-set $inc --no-startup-id pamixer -i 5
-set $biginc --no-startup-id pamixer -i 15
-set $dec --no-startup-id pamixer -d 5
-set $bigdec --no-startup-id pamixer -d 15
-set $mute --no-startup-id pamixer -t
-set $micmute --no-startup-id pamixer -t
-set $truemute --no-startup-id pamixer -m
-#set $screencast  --no-startup-id bash ~/.config/scripts/screencast_pulse.sh
-set $audio --no-startup-id bash ~/.config/scripts/audio_pulse.sh
-
-
-# switch to workspace
-bindsym $mod+ampersand workspace 1
-bindsym $mod+eacute workspace 2
-bindsym $mod+quotedbl workspace 3
-bindsym $mod+apostrophe workspace 4
-bindsym $mod+parenleft workspace 5
-bindsym $mod+section workspace 6
-bindsym $mod+egrave workspace 7
-bindsym $mod+exclam workspace 8
-bindsym $mod+ccedilla workspace 9
-bindsym $mod+agrave workspace 10
-
-# move focused container to workspace
-bindsym $mod+Shift+ampersand move container to workspace 1
-bindsym $mod+Shift+eacute move container to workspace 2
-bindsym $mod+Shift+quotedbl move container to workspace 3
-bindsym $mod+Shift+apostrophe move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+section move container to workspace 6
-bindsym $mod+Shift+egrave move container to workspace 7
-bindsym $mod+Shift+exclam move container to workspace 8
-bindsym $mod+Shift+ccedilla move container to workspace 9
-bindsym $mod+Shift+agrave move container to workspace 10
-
-###---Extra XF86 Keys---###
-#These are the extra media keys that some keyboards have.
-bindsym XF86AudioMute		exec $mute
+###---------------------------###
+#		XF86 Bindings			#
+###---------------------------###
+bindsym XF86AudioMute			exec $mute
 bindsym XF86AudioLowerVolume	exec $dec
 bindsym XF86AudioRaiseVolume	exec $inc
-bindsym XF86PowerOff		exec sudo shutdown -h now
-bindsym XF86Sleep		exec sudo zzz 
-#bindsym XF86RotateWindows	exec
-bindsym XF86MyComputer		exec $term -e ranger
-#bindsym XF86Back		exec
-#bindsym XF86Forward		exec
-bindsym XF86AudioNext		exec $next
-bindsym XF86AudioPlay		exec $pause
-bindsym XF86AudioPrev		exec $prev
-bindsym XF86AudioStop		exec $pause
-bindsym XF86Reload		restart
-#bindsym XF86ScrollUp		exec
-#bindsym XF86ScrollDown		exec
-bindsym XF86AudioMicMute	exec $micmute
-#bindsym XF86TouchpadToggle	exec
-bindsym XF86TouchpadOn		exec --no-startup-id synclient TouchpadOff=0
-bindsym XF86TouchpadOff		exec --no-startup-id synclient TouchpadOff=1
-bindsym XF86Suspend		exec --no-startup-id i3lock
-bindsym XF86Close		kill
+bindsym XF86PowerOff			exec sudo shutdown -h now
+bindsym XF86Sleep				exec sudo zzz
+#bindsym XF86RotateWindows
+bindsym XF86MyComputer			exec $term -e ranger
+#bindsym XF86Back
+#bindsym XF86Forward
+bindsym XF86AudioNext			exec $next
+bindsym XF86AudioPlay			exec $pause
+bindsym XF86AudioPrev			exec $prev
+bindsym XF86AudioStop			exec $pause
+bindsym XF86Reload				restart
+#bindsym XF86ScrollUp
+#bindsym XF86ScrollDown
+bindsym XF86AudioMicMute		exec $micmute
+#bindsym XF86TouchpadToggle
+bindsym XF86TouchpadOn			exec --no-startup-id synclient TouchpadOff=0
+bindsym XF86TouchpadOff			exec --no-startup-id synclient TouchpadOff=1
+bindsym XF86Suspend				exec --no-startup-id i3lock
+bindsym XF86Close				kill
 bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5
-bindsym XF86MonBrightnessUp	exec --no-startup-id xbacklight -inc 5
-bindsym XF86AudioMedia		exec $music
-bindsym XF86Display		exec --no-startup-id arandr
-#bindsym XF86KbdLightOnOff	exec
-bindsym XF86KbdBrightnessUp	exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh up
-bindsym XF86KbdBrightnessDown exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh down
+bindsym XF86MonBrightnessUp		exec --no-startup-id xbacklight -inc 5
+bindsym XF86AudioMedia			exec $music
+bindsym XF86Display				exec --no-startup-id arandr
+#bindsym XF86KbdLightOnOf
+bindsym XF86KbdBrightnessUp		exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh up
+bindsym XF86KbdBrightnessDown 	exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh down
 
+
+###---------------------------###
+#		Workspace bindings		#
+###---------------------------###
+# Switch
+bindsym $mod+ampersand		workspace 1
+bindsym $mod+eacute			workspace 2
+bindsym $mod+quotedbl 		workspace 3
+bindsym $mod+apostrophe 	workspace 4
+bindsym $mod+parenleft 		workspace 5
+bindsym $mod+section 		workspace 6
+bindsym $mod+egrave 		workspace 7
+bindsym $mod+exclam 		workspace 8
+bindsym $mod+ccedilla 		workspace 9
+bindsym $mod+agrave 		workspace 10
+
+# Move focused container
+bindsym $mod+Shift+ampersand 	move container to workspace 1
+bindsym $mod+Shift+eacute 		move container to workspace 2
+bindsym $mod+Shift+quotedbl 	move container to workspace 3
+bindsym $mod+Shift+apostrophe 	move container to workspace 4
+bindsym $mod+Shift+5 			move container to workspace 5
+bindsym $mod+Shift+section 		move container to workspace 6
+bindsym $mod+Shift+egrave 		move container to workspace 7
+bindsym $mod+Shift+exclam 		move container to workspace 8
+bindsym $mod+Shift+ccedilla 	move container to workspace 9
+bindsym $mod+Shift+agrave 		move container to workspace 10
