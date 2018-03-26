@@ -10,11 +10,11 @@ let mapleader=";"
 
 set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4 smarttab
 
-set number 		" show line numbers
+set number 			" show line numbers
 set autoindent		" auto indeting on 
 set path+=**		" search down into subfolders
 set wildmenu		" display all matching files on tab complete
-set mouse=a		" enable mouse selection
+set mouse=a			" enable mouse selection
 set autoread		" auto reload file on change
 set encoding=utf-8	" set default encoding
 set splitright
