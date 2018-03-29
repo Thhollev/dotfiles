@@ -29,3 +29,6 @@ fi
 if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-session)"
 fi
+
+# Add path for scripts
+PATH=$PATH:~/dotfiles/scripts/
