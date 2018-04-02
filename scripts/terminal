@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+if [[ $(xtitle) =~ (^| )(~?)(/.*) ]]; then
+	unusableprefix=${BASH_REMATCH[2]}
+	path=${BASH_REMATCH[3]}
+	case $unusableprefix in
+		"~") path="$HOME$path"; ;;
+		".") path=""; ;;
+	esac
+
+	while [[ $path != "/" && -n $path && ! -d $path ]]; do
+		path="$(dirname "$path")"
+	done
+fi
+
+# Open terminal at specified path
+cmd=terminator
+[[ -n "$path" ]] &&
+	exec $cmd --working-directory="$path" ||
+	exec $cmd
+

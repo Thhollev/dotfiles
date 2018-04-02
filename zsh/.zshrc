@@ -30,5 +30,7 @@ if [[ "$SSH_AGENT_PID" == "" ]]; then
     eval "$(<~/.ssh-agent-session)"
 fi
 
-# Add path for scripts
-PATH=$PATH:~/dotfiles/scripts/
+# set PATH to include scripts
+if [ -d "$HOME/dotfiles/scripts" ] ; then
+	PATH=$PATH:$HOME/dotfiles/scripts/
+fi

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+kill $(ps aux | grep 'python.*wallpaper.py' | awk '{print $2}') 2&>/dev/null
+wallpaper.py &

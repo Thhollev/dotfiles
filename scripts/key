@@ -3,5 +3,5 @@
 i3-msg 'workspace 9'
 
 if [ -z $(pgrep keepassx2) ]; then
-	keepassx2 --keyfile /run/media/thomas/*/passwords.kdbx &
+	keepassx2 --keyfile /home/thomas/.key/passwords.kdbx &
 fi

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Don't start a new transition if the previous one isn't done yet
+pgrep -u $UID -x xbacklight >/dev/null && exit
+
+# Calculate new target brightness
+current_brightness=$(xbacklight -get)
+case $1 in
+	up)
+		target=$((current_brightness * 15 / 10))
+		[[ $target -ne $current_brightness ]] || target=$((target + 1))
+		;;
+	down)
+		target=$((current_brightness * 10 / 15))
+		[[ $target -ne $current_brightness ]] || target=$((target - 1))
+		;;
+esac
+
+# Boundaries: can't go higher than 100% or lower than 1%
+[[ $target -le 1   ]] && target=1
+[[ $target -ge 100 ]] && target=100
+
+# Smoothly set the new brightness
+xbacklight -time 100 -fps 30 -set $target

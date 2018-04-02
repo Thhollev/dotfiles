@@ -6,6 +6,7 @@ for_window [class="^.*"] border pixel 0
 gaps inner 0
 gaps outer 0
 font pango:DejaVu Sans Mono 9
+focus_follows_mouse no
 set $term terminator
 set $browser firefox-developer-edition
 
@@ -37,15 +38,15 @@ exec --no-startup-id sudo mount -a
 # Composite manager:
 exec --no-startup-id compton
 # Load 2nd screen
-exec --no-startup-id ~/.config/scripts/screen.sh
+exec --no-startup-id screen.sh
 # Launch Polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 # Wallpaper
-exec --no-startup-id ~/.config/scripts/wallpaper.sh
+exec --no-startup-id wallpaper
 # Unclutter (makes the mouse invisible)
 exec --no-startup-id unclutter
 # Battery notifications
-exec --no-startup-id ~/.config/scripts/battery-noti.sh
+exec --no-startup-id battery-noti
 
 
 ###---------------------------###
@@ -69,7 +70,6 @@ set $bigdec --no-startup-id pamixer -d 15
 set $mute --no-startup-id pamixer -t
 set $micmute --no-startup-id pamixer -t
 set $truemute --no-startup-id pamixer -m
-set $audio --no-startup-id bash ~/.config/scripts/audio_pulse.sh
 
 
 ###---------------------------###
@@ -166,7 +166,7 @@ bindsym $mod+Shift+l		move right
 bindsym $mod+z				gaps outer current plus 5
 bindsym $mod+Shift+z		gaps outer current minus 5
 
-bindsym $mod+x				exec --no-startup-id i3lock
+bindsym $mod+x				exec --no-startup-id i3lock -c 000000
 bindsym $mod+Shift+x		exec --no-startup-id poweroff
 
 bindsym $mod+c				exec --no-startup-id i3-msg 'workspace 10' && exec cantata
@@ -181,7 +181,7 @@ bindsym $mod+Shift+b		exec --no-startup-id $browser --private-window
 bindsym $mod+n				exec --no-startup-id nautilus
 #bindsym $mod+Shift+n
 
-bindsym $mod+m				exec --no-startup-id ~/.config/scripts/key.sh
+bindsym $mod+m				exec --no-startup-id key
 #bindsym $mod+Shift+m
 
 
@@ -210,13 +210,13 @@ bindsym XF86TouchpadOn			exec --no-startup-id synclient TouchpadOff=0
 bindsym XF86TouchpadOff			exec --no-startup-id synclient TouchpadOff=1
 bindsym XF86Suspend				exec --no-startup-id i3lock
 bindsym XF86Close				kill
-bindsym XF86MonBrightnessDown	exec --no-startup-id xbacklight -dec 5
-bindsym XF86MonBrightnessUp		exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown	exec --no-startup-id backlight down
+bindsym XF86MonBrightnessUp		exec --no-startup-id backlight up
 bindsym XF86AudioMedia			exec $music
 bindsym XF86Display				exec --no-startup-id arandr
 #bindsym XF86KbdLightOnOf
-bindsym XF86KbdBrightnessUp		exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh up
-bindsym XF86KbdBrightnessDown 	exec --no-startup-id ~/dotfiles/scripts/kbdlight.sh down
+bindsym XF86KbdBrightnessUp		exec --no-startup-id kbdlight up
+bindsym XF86KbdBrightnessDown 	exec --no-startup-id kbdlight down
 
 
 ###---------------------------###
@@ -245,3 +245,4 @@ bindsym $mod+Shift+egrave 		move container to workspace 7
 bindsym $mod+Shift+exclam 		move container to workspace 8
 bindsym $mod+Shift+ccedilla 	move container to workspace 9
 bindsym $mod+Shift+agrave 		move container to workspace 10
+
