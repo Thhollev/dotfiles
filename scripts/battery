@@ -1,0 +1,12 @@
+#!/bin/env python3
+
+def read(p): return int(open(p).read().strip())
+
+energy_now = read("/sys/class/power_supply/BAT0/energy_now")
+energy_full = read("/sys/class/power_supply/BAT0/energy_full")
+energy_full_design = read("/sys/class/power_supply/BAT0/energy_full_design")
+
+print('Battery level: {}%. Capacity: {}%'.format(
+	round(energy_now / energy_full * 100, 2),
+	round(energy_full / energy_full_design * 100, 2)
+    ))

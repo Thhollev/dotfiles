@@ -249,4 +249,3 @@ bindsym $mod+Shift+egrave 		move container to workspace 7
 bindsym $mod+Shift+exclam 		move container to workspace 8
 bindsym $mod+Shift+ccedilla 	move container to workspace 9
 bindsym $mod+Shift+agrave 		move container to workspace 10
-
