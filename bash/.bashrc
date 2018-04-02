@@ -55,7 +55,8 @@ vis () {
     fi
 }
 
-export VISUAL=vim
+export VISUAL=nvim
+export TERMINAL=terminator
 
 # set PATH to include scripts
 if [ -d "$HOME/dotfiles/scripts" ] ; then

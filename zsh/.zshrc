@@ -20,7 +20,8 @@ source $ZSH/oh-my-zsh.sh
 # Common aliases with bash
 source $HOME/.aliases
 
-export VISUAL=vim
+export VISUAL=nvim
+export TERMINAL=terminator
 
 # Add ssh key to agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then

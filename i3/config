@@ -1,17 +1,4 @@
 ###---------------------------###
-#			Basic				#
-###---------------------------###
-hide_edge_borders both
-for_window [class="^.*"] border pixel 0
-gaps inner 0
-gaps outer 0
-font pango:DejaVu Sans Mono 9
-focus_follows_mouse no
-set $term terminator
-set $browser firefox-developer-edition
-
-
-###---------------------------###
 #			Keys				#
 ###---------------------------###
 # Mod
@@ -25,6 +12,23 @@ exec --no-startup-id xset r rate 200 30
 
 
 ###---------------------------###
+#			Basic				#
+###---------------------------###
+default_border none
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+gaps inner 0
+gaps outer 0
+font pango:DejaVu Sans Mono 9
+focus_follows_mouse no
+floating_modifier $mod
+workspace_auto_back_and_forth yes
+
+set $term terminator
+set $browser firefox-developer-edition
+
+
+###---------------------------###
 #			Scripts				#
 ###---------------------------###
 # Mpd
@@ -32,10 +36,10 @@ exec --no-startup-id mpd
 # Transmission
 exec --no-startup-id transmission-daemon
 # NetworkManager
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 # Mount drives
 exec --no-startup-id sudo mount -a
-# Composite manager:
+# Composite manager
 exec --no-startup-id compton
 # Load 2nd screen
 exec --no-startup-id screen.sh
@@ -50,7 +54,7 @@ exec --no-startup-id battery-noti
 
 
 ###---------------------------###
-#			Scratchpad			#
+#			Scratchpads			#
 ###---------------------------###
 # R for basic arithmetic
 for_window [instance="math"] floating enable
@@ -85,14 +89,14 @@ bindsym $mod+Shift+Down 	move down
 bindsym $mod+Shift+Up 		move up
 bindsym $mod+Shift+Right 	move right
 
-bindsym $mod+Return 		exec --no-startup-id $term
+bindsym $mod+Return 		exec --no-startup-id terminal
 #bindsym $mod+Shift+Return
 
 bindsym $mod+Shift+space 	floating toggle
 bindsym $mod+space			focus mode_toggle
 
-bindsym $mod+Escape			workspace prev
-#bindsym $mod+Shift+Escape
+bindsym $mod+Escape			workspace back_and_forth
+bindsym $mod+Shift+Escape	move container to workspace back_and_forth
 
 bindsym $mod+BackSpace		exec --no-startup-id $flash
 #bindsym $mod+Shift+BackSpace
@@ -130,7 +134,7 @@ bindsym $mod+y				split vertical
 bindsym $mod+i 				exec --no-startup-id $term -e htop
 #bindsym $mod+Shift+i
 
-#bindsym $mod+o
+bindsym $mod+o				exec --no-startup-id wallpaper
 #bindsym $mod+Shift+o
 
 bindsym $mod+p				focus parent
@@ -191,16 +195,16 @@ bindsym $mod+m				exec --no-startup-id key
 bindsym XF86AudioMute			exec $mute
 bindsym XF86AudioLowerVolume	exec $dec
 bindsym XF86AudioRaiseVolume	exec $inc
+bindsym XF86AudioNext			exec $next
+bindsym XF86AudioPlay			exec $pause
+bindsym XF86AudioPrev			exec $prev
+bindsym XF86AudioStop			exec $pause
 bindsym XF86PowerOff			exec sudo shutdown -h now
 bindsym XF86Sleep				exec sudo zzz
 #bindsym XF86RotateWindows
 bindsym XF86MyComputer			exec $term -e ranger
 #bindsym XF86Back
 #bindsym XF86Forward
-bindsym XF86AudioNext			exec $next
-bindsym XF86AudioPlay			exec $pause
-bindsym XF86AudioPrev			exec $prev
-bindsym XF86AudioStop			exec $pause
 bindsym XF86Reload				restart
 #bindsym XF86ScrollUp
 #bindsym XF86ScrollDown

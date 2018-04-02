@@ -1,0 +1,78 @@
+[global]
+    monitor = 0
+    #follow = mouse
+    follow = keyboard
+    geometry = "400x5-20+47"
+    indicate_hidden = yes
+    shrink = no
+    transparency = 5
+    notification_height = 10
+    padding = 10
+    horizontal_padding = 10
+    frame_width = 0
+    frame_color = "#aaaaaa"
+    separator_height = 0
+    separator_color = frame
+    sort = yes
+    idle_threshold = 30s
+
+
+    font = Fira Sans 12
+    line_height = 0
+    markup = full
+    format = <span size="small" letter_spacing="2048" alpha="75%%" font_features="c2sc, smcp, zero">%a %p</span><span size="1500">\n\n</span><span font_features="zero" weight="bold">%s</span>\n<span font_features="zero">%b</span>
+    alignment = left
+    show_age_threshold = 10
+    word_wrap = yes
+    ellipsize = middle
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+
+
+    icon_position = right
+    max_icon_size = 32
+    icon_path = /usr/share/icons/gnome/32x32/status/:/usr/share/icons/gnome/32x32/devices/
+
+
+    sticky_history = yes
+    history_length = 100
+
+    # dmenu path.
+    dmenu = /usr/bin/dmenu -p dunst:
+    browser = /usr/bin/firefox -new-tab
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    startup_notification = false
+    force_xinerama = false
+
+
+[experimental]
+    per_monitor_dpi = false
+
+[shortcuts]
+    close = mod4+n
+    close_all = mod4+shift+n
+    history = mod4+Tab
+    context = mod4+shift+Tab
+
+[urgency_low]
+    background = "#222222"
+    foreground = "#888888"
+    timeout = 10
+    #icon = /path/to/icon
+
+[urgency_normal]
+    background = "#285577"
+    foreground = "#ffffff"
+    timeout = 10
+    #icon = /path/to/icon
+
+[urgency_critical]
+    background = "#900000"
+    foreground = "#ffffff"
+    frame_color = "#ff0000"
+    timeout = 0
+    #icon = /path/to/icon
